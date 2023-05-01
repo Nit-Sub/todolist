@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import logo from '../assets/logo.png';
 
 const Header = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(JSON.parse(localStorage.getItem("theme")) || "light");
   useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(theme))
     document.documentElement.removeAttribute("class")
     document.documentElement.classList.add(theme)
   }, [theme])
@@ -22,10 +23,6 @@ const Header = () => {
           <span onClick={() => setTheme("gTwo")} className={theme === "gTwo" ? "gTwo activeTheme" : "gTwo"}></span>
           <span onClick={() => setTheme("gThree")} className={theme === "gThree" ? "gThree activeTheme" : "gThree"}></span>
         </div>
-      </header>
-
-    </>
-  )
+      </header></>)
 }
-
 export default Header
