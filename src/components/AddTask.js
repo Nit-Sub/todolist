@@ -9,6 +9,7 @@ const AddTask = ({ taskList, setTaskList, task, setTask }) => {
                 todo.id === task.id ? { id: task.id, name: task.name, time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}` } : todo
             ));
             setTaskList(updatedTasklist);
+            setTask({})
         } else {
             const date = new Date();
             const newTask = {
@@ -17,15 +18,16 @@ const AddTask = ({ taskList, setTaskList, task, setTask }) => {
                 time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
             }
             setTaskList([...taskList, newTask]);
-            e.target.task.value = "";
+            setTask({})
+            
         }
     }
     return (
         <>
             <section className="addTask">
                 <form onSubmit={handleChange}>
-                    <input placeholder='addTask' type='text' value={task.name} name='task' maxLength={45} autoComplete='off' onChange={(e) => setTask({ ...task, name: e.target.value })} />
-                    <button type='submit'>Add</button>
+                    <input placeholder='addTask' type='text' value={task.name || ""} name='task' maxLength={45} autoComplete='off' onChange={(e) => setTask({ ...task, name: e.target.value })} />
+                    <button type='submit'>{task.id?"Update":"Add"}</button>
                 </form>
             </section>
         </>
